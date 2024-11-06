@@ -1,6 +1,6 @@
-package com.kopring_back.kopring.repository
+package com.kopring_back.kopring.repository.redis
 
-import com.kopring_back.kopring.entity.Member
+import com.kopring_back.kopring.entity.Redis.Member
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
