@@ -24,6 +24,10 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+	// Redis
+	implementation("org.springframework.boot:spring-boot-starter-data-redis")
+	implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive") // 선택사항: 리액티브 프로그래밍을 사용하는 경우
 //	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 //	runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
 
