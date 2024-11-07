@@ -1,6 +1,6 @@
 package com.kopring_back.kopring.controller
 
-import com.kopring_back.kopring.entity.Redis.Member
+import com.kopring_back.kopring.entity.redis.Member
 import com.kopring_back.kopring.repository.redis.MemberRepositoryRedis
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.web.bind.annotation.*
