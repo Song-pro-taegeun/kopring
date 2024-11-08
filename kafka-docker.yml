@@ -1,0 +1,76 @@
+version: "3.8"
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+# version: "3.8"
+# networks:
+#   kafka-net:
+#     driver: bridge
+
+# services:
+#   zookeeper:
+#     image: wurstmeister/zookeeper:latest
+#     container_name: zookeeper
+#     ports:
+#       - "2181:2181"
+#     networks:
+#       - kafka-net
+#   kafka:
+#     bootstrap-servers: localhost:9092
+#     image: wurstmeister/kafka:latest
+#     container_name: kafka
+#     ports:
+#       - "9092:9092"
+#     environment:
+#       KAFKA_ADVERTISED_HOST_NAME: localhost # kafka로 설정해 Docker 네트워크에서 접근 가능하도록 설정, Kafka 브로커의 호스트 이름을 설정하며, 클러스터가 특정 네트워크 환경에서 외부 클라이언트에게 브로커 호스트명을 노출
+#       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092 # Docker 네트워크 상에서의 호스트명, kafka 브로커의 접근 URL을 설정하는 주요 속성으로, 브로커가 클라이언트와 통신할 때 사용
+#       # KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092 # Docker 네트워크 상에서의 호스트명, dkafka 브로커의 접근 URL을 설정하는 주요 속성으로, 브로커가 클라이언트와 통신할 때 사용
+#       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+#     volumes:
+#       - /var/run/docker.sock:/var/run/docker.sock
+#     networks:
+#       - kafka-net
+#   kafdrop:
+#     hostname: localhost
+#     container_name: kafdrop
+#     image: obsidiandynamics/kafdrop
+#     restart: "always"
+#     ports:
+#       - "9000:9000"
+#     environment:
+#       KAFKA_BROKERCONNECT: "kafka:9092"
+#       JVM_OPTS: "-Xms64M -Xmx128M"
+#     depends_on:
+#       - zookeeper
+#       - kafka
+#     networks:
+#       - kafka-net
+#   kafka-manager:
+#     image: hlebalbau/kafka-manager:latest
+#     container_name: kafka-manager
+#     ports:
+#       - "9001:9000"
+#     environment:
+#       ZK_HOSTS: zookeeper:2181
+#     depends_on:
+#       - zookeeper
+#       - kafka
+#     networks:
+#       - kafka-net
