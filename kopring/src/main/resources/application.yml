@@ -3,14 +3,41 @@ spring:
     redis:
       host: localhost
       port: 6379
+#  kafka:
+#    bootstrap-servers: localhost:9092 # hostname -I
+#    consumer:
+#      group-id: "my-group"
+#      auto-offset-reset: earliest
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
   kafka:
-    bootstrap-servers: kafka:9092
+    bootstrap-servers:
+      - localhost:9093
+      - localhost:9094
+      - localhost:9095
     consumer:
-      group-id: test-group
+      group-id: my-consumer-group
       auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    listener:
+      missing-topics-fatal: false
 
+    admin:
+      client-id: my-kafka-admin
+    properties:
+      security.protocol: PLAINTEXT
+      connections.max.idle.ms: 10000
+      request.timeout.ms: 20000
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#  server:
+#    port: 9000  # Kafdrop ??? ??? ??
