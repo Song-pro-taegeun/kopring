@@ -27,7 +27,8 @@ class RedisSubscribeListener(
                 log.info("Redis Subscribe Channel : ${messageDto.roomId}")
                 log.info("Redis SUB Message : {}", publishMessage)
 
-                messagingTemplate.convertAndSend("/topic/chat", publishMessage)
+                // messagingTemplate.convertAndSend("/topic/chat", publishMessage)
+                messagingTemplate.convertAndSend("/topic/" + messageDto.roomId, publishMessage)
             }
         } catch (e: Exception) {
             log.error(e.message, e)

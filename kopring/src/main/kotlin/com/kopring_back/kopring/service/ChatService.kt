@@ -20,12 +20,12 @@ class ChatService (
      * Channel 별 Message 전송
      * @param
      */
-    fun pubMsgChannel(channel: String, message: MessageDto) {
+    fun pubMsgChannel(message: MessageDto) {
         //1. 요청한 Channel 을 구독.
-        redisMessageListenerContainer.addMessageListener(redisSubscribeListener, ChannelTopic(channel))
+        redisMessageListenerContainer.addMessageListener(redisSubscribeListener, ChannelTopic(message.roomId))
 
         //2. Message 전송
-        redisPublisher.publish(ChannelTopic(channel), message)
+        redisPublisher.publish(ChannelTopic(message.roomId), message)
     }
 
 
