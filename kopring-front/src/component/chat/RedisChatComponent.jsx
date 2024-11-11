@@ -2,23 +2,19 @@ import React, { useEffect, useState } from "react";
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
 import { GET, POST } from "../../service/fetch-auth-action";
-import { useNavigate } from "react-router-dom";
 
-const RedisChatComponent = () => {
-  const nav = useNavigate();
+const RedisChatComponent = ({ setEnterRoom, enterRoomInfo, setEnterRoomInfo }) => {
   const [messages, setMessages] = useState([]);
   const [inputData, setInputData] = useState("");
-  const [name, setName] = useState("");
-  const [channel, setChannel] = useState("");
 
   useEffect(() => {
-    if (!channel) return; // 채널이 설정되지 않으면 구독하지 않음
+    if (!enterRoomInfo.roomId) return; // 채널이 설정되지 않으면 구독하지 않음
 
     // WebSocket 서버에 연결 설정
     const socket = new SockJS("http://localhost:8080/ws");
     const client = Stomp.over(socket);
     client.connect({}, () => {
-      client.subscribe("/topic/" + channel, (message) => {
+      client.subscribe("/topic/" + enterRoomInfo.roomId, (message) => {
         setMessages((prevMessages) => [...prevMessages, JSON.parse(message.body)]);
       });
     });
@@ -29,11 +25,11 @@ const RedisChatComponent = () => {
         disConnectRedisAndWebSocket(client);
       }
     };
-  }, [channel]);
+  }, [enterRoomInfo.roomId]);
 
   const disConnectRedisAndWebSocket = async (client) => {
     try {
-      const response = await GET(`/chat/cancle?channel=${channel}`);
+      const response = await GET(`/chat/cancle?channel=${enterRoomInfo.roomId}`);
       if (response.status === 200) {
         client.disconnect(() => {
           console.log("웹 소켓/레디스 구독 종료 ");
@@ -47,8 +43,8 @@ const RedisChatComponent = () => {
   const handleSenderClick = async () => {
     const param = {
       message: inputData,
-      sender: name,
-      roomId: channel,
+      sender: enterRoomInfo.userId,
+      roomId: enterRoomInfo.roomId,
     };
 
     const url = `/chat/send`;
@@ -62,34 +58,20 @@ const RedisChatComponent = () => {
   };
 
   return (
-    <div>
-      <h2>실시간 채팅 - 웹사용자</h2>
-      <div>
-        이름 :{" "}
-        <input
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
-        />
-      </div>
-      <div>
-        채널 :{" "}
-        <input
-          onChange={(e) => {
-            setChannel(e.target.value);
-          }}
-        />
-      </div>
-      <br />
-      <div>
-        {messages.map((msg, index) => (
-          <div key={index}>
-            <span>[{msg.sender}] : </span> <span key={index}>{msg.message}</span>
-          </div>
-        ))}
+    <div className="chat-container">
+      <h2>실시간 채팅 - {enterRoomInfo.roomName}</h2>
+      <div className="message-list">
+        {messages.map((msg, index) => {
+          const isMyMessage = msg.sender === enterRoomInfo.userId;
+          return (
+            <div key={index} className={isMyMessage ? "my-message" : "other-message"}>
+              <span>{isMyMessage ? msg.message : `[${msg.sender}] : ${msg.message}`}</span>
+            </div>
+          );
+        })}
       </div>
 
-      <div>
+      <div className="input-container">
         <input
           value={inputData}
           type="text"
@@ -102,14 +84,17 @@ const RedisChatComponent = () => {
             }
           }}
         />
-        <button onClick={handleSenderClick}>전송</button>
-
+        <button className="send-button" onClick={handleSenderClick}>
+          전송
+        </button>
         <button
+          className="back-button"
           onClick={() => {
-            nav("/");
+            setEnterRoom(false);
+            setEnterRoomInfo(null);
           }}
         >
-          home
+          뒤로가기
         </button>
       </div>
     </div>

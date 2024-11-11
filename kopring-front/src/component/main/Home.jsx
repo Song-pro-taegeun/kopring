@@ -8,7 +8,7 @@ export default function Home() {
 
       <button
         onClick={() => {
-          nav("/chat");
+          nav("/chatList");
         }}
       >
         채팅

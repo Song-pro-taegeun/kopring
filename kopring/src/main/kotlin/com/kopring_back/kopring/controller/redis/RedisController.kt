@@ -1,4 +1,4 @@
-package com.kopring_back.kopring.controller
+package com.kopring_back.kopring.controller.redis
 
 import com.kopring_back.kopring.entity.redisEntity.Member
 import com.kopring_back.kopring.repository.redis.MemberRepositoryRedis

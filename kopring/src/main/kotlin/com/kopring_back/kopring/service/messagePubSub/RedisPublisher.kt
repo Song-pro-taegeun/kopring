@@ -1,6 +1,6 @@
 package com.kopring_back.kopring.service.messagePubSub
 
-import com.kopring_back.kopring.dto.MessageDto
+import com.kopring_back.kopring.dto.RedisMessageDto
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.listener.ChannelTopic
 import org.springframework.stereotype.Service
@@ -20,7 +20,7 @@ class RedisPublisher (
     fun publish(topic: ChannelTopic, data: Any) {
         when(data){
             is String -> redisTemplate.convertAndSend(topic.topic, data)
-            is MessageDto -> redisTemplate.convertAndSend(topic.topic, data)
+            is RedisMessageDto -> redisTemplate.convertAndSend(topic.topic, data)
             else -> throw RuntimeException("Unsupported data type: ${data::class.java}")
         }
     }

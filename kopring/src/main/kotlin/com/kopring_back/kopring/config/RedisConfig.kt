@@ -1,5 +1,8 @@
 package com.kopring_back.kopring.config
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.kopring_back.kopring.dto.RoomDto
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -55,6 +58,15 @@ class RedisConfig (
     @Bean
     fun redisTemplate(connectionFactory: RedisConnectionFactory?): RedisTemplate<String, Any> {
         val redisTemplate = RedisTemplate<String, Any>()
+        redisTemplate.keySerializer = StringRedisSerializer()
+        redisTemplate.valueSerializer = GenericJackson2JsonRedisSerializer() // JSON 포맷으로 저장
+        redisTemplate.connectionFactory = connectionFactory
+        return redisTemplate
+    }
+
+    @Bean
+    fun roomDtoRedisTemplate(connectionFactory: RedisConnectionFactory): RedisTemplate<String, RoomDto> {
+        val redisTemplate = RedisTemplate<String, RoomDto>()
         redisTemplate.keySerializer = StringRedisSerializer()
         redisTemplate.valueSerializer = GenericJackson2JsonRedisSerializer() // JSON 포맷으로 저장
         redisTemplate.connectionFactory = connectionFactory
