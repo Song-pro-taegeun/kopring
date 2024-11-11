@@ -1,7 +1,7 @@
 package com.kopring_back.kopring.service.messagePubSub
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.kopring_back.kopring.dto.MessageDto
+import com.kopring_back.kopring.dto.RedisMessageDto
 import org.slf4j.LoggerFactory
 import org.springframework.data.redis.connection.Message
 import org.springframework.data.redis.connection.MessageListener
@@ -20,7 +20,7 @@ class RedisSubscribeListener(
     override fun onMessage(message: Message, pattern: ByteArray?) {
         try {
             val publishMessage = template.stringSerializer.deserialize(message.body)
-            val messageDto = objectMapper.readValue(publishMessage, MessageDto::class.java)
+            val messageDto = objectMapper.readValue(publishMessage, RedisMessageDto::class.java)
 
             // WebSocket을 통해 클라이언트로 메시지 전송
             if (publishMessage != null) {
