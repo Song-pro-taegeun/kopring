@@ -27,7 +27,20 @@
    npm install
    npm start
 
-![image](https://github.com/user-attachments/assets/38720d2a-5282-4efe-8a12-ebd6d7917e54)
-![image](https://github.com/user-attachments/assets/614ed9bd-61ff-411e-bd32-b1671132cdfb)
-![image](https://github.com/user-attachments/assets/cd69c1dd-52ea-4f60-8f22-3ff26b870edd)
-![image](https://github.com/user-attachments/assets/8cb2463e-0019-4397-9bd5-e85a40db3b12)
+
+## 방 생성
+![image](https://github.com/user-attachments/assets/d475748b-8e1a-4338-ae9b-5e40daf3dbb8)
+
+
+## Redis Data
+![image](https://github.com/user-attachments/assets/aa3addd0-bb5e-4c11-bfe8-463af5bdaa8f)
+
+
+## 방 리스트
+![image](https://github.com/user-attachments/assets/c53a4e07-5de5-4b04-9d49-947f48e7e293)
+
+
+## 채팅
+![image](https://github.com/user-attachments/assets/869269a5-f0e7-4f3b-9731-0d4cd972f9b9)
+![image](https://github.com/user-attachments/assets/c82fa57b-2dcf-4bb1-af79-35aa7b43da39)
+
