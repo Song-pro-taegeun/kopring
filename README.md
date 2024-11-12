@@ -26,3 +26,8 @@
 3. **프런트엔드 서버 실행**:
    npm install
    npm start
+
+![image](https://github.com/user-attachments/assets/38720d2a-5282-4efe-8a12-ebd6d7917e54)
+![image](https://github.com/user-attachments/assets/614ed9bd-61ff-411e-bd32-b1671132cdfb)
+![image](https://github.com/user-attachments/assets/cd69c1dd-52ea-4f60-8f22-3ff26b870edd)
+![image](https://github.com/user-attachments/assets/8cb2463e-0019-4397-9bd5-e85a40db3b12)
