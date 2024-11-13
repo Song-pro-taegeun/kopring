@@ -27,6 +27,9 @@
    npm install
    npm start
 
+## 단위테스트 도구
+1. Mockito
+2. JUnit
 
 ## 방 생성
 ![image](https://github.com/user-attachments/assets/d475748b-8e1a-4338-ae9b-5e40daf3dbb8)
