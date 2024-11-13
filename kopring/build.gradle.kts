@@ -35,9 +35,22 @@ dependencies {
 	implementation ("org.springframework:spring-messaging")
 
 	implementation ("org.springframework.kafka:spring-kafka")
+	implementation ("com.google.code.gson:gson:2.9.0")
+
+
+
+	compileOnly("org.projectlombok:lombok:1.18.28")
+	annotationProcessor("org.projectlombok:lombok:1.18.28")
+
+	testCompileOnly("org.projectlombok:lombok:1.18.28")
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.28")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+
+	testImplementation("org.mockito:mockito-core:5.5.0")
+	testImplementation("org.mockito.kotlin:mockito-kotlin:5.0.0")
+
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
